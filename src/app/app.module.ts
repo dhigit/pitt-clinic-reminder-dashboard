@@ -8,12 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RemindersService} from './reminders.service';
 import { MatSortModule } from '@angular/material/sort';
-import { RemindersDetailComponent } from './reminders/reminders-detail/reminders-detail.component';
 import { MatIconModule } from '@angular/material/icon';
+import { RemindersComponent } from './reminders/reminders.component';
+import { RemindersDetailComponent } from './reminders/reminders-detail/reminders-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    RemindersComponent,
     RemindersDetailComponent
   ],
   imports: [

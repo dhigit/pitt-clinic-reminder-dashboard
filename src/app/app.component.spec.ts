@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'pitt-clinic-reminder-dashboard'`, () => {
+  it(`should have as title 'pitt-clinic-reminder-dashboard2'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('pitt-clinic-reminder-dashboard');
+    expect(app.title).toEqual('pitt-clinic-reminder-dashboard2');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('pitt-clinic-reminder-dashboard app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('pitt-clinic-reminder-dashboard2 app is running!');
   });
 });

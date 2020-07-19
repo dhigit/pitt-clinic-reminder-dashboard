@@ -14,7 +14,20 @@ export class RemindersService {
 
   getPatientMappingByDoctor(doctorId: number): Observable<any>{
     return this.http.get(
-      this.url + '/mapping/bydoctor/' + doctorId
+      `${this.url}/mapping/bydoctor/${doctorId}`
+    ).pipe(
+      map(
+        results => {
+          //console.log(results);
+          return results;
+        }
+      )
+    )
+  }
+
+  getRemindersByMid(mid: number): Observable<any>{
+    return this.http.get(
+      `${this.url}/reminders/bymapping/${mid}`
     ).pipe(
       map(
         results => {
