@@ -38,4 +38,17 @@ export class RemindersService {
     )
   }
 
+  getMappingById(mid: number): Observable<any>{
+    return this.http.get(
+      `${this.url}/mapping/${mid}`
+    ).pipe(
+      map(
+        results => {
+          //console.log(results);
+          return results;
+        }
+      )
+    )
+  }
+
 }

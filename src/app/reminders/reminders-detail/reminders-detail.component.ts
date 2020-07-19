@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RemindersService } from 'src/app/reminders.service';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -12,11 +12,14 @@ export class RemindersDetailComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private remindersService: RemindersService
+    private remindersService: RemindersService,
+    private router: Router
   ) { }
 
-  loadedRemiders = null;
+
   mid = -1;
+  mappingInfo = null;
+  loadedRemiders = null;
 
   displayedColumns: string[] = [
     'title',
@@ -29,9 +32,12 @@ export class RemindersDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.mid = +this.activatedRoute.snapshot.paramMap.get('mid');
+    this.remindersService.getMappingById(this.mid).subscribe(result=> {
+      this.mappingInfo = result;
+    });
+
     this.remindersService.getRemindersByMid(this.mid).subscribe(result => {
       this.loadedRemiders = result;
-      //console.log(this.loadedRemiders);
       this.generateChartData();
     });
   }
@@ -99,6 +105,10 @@ export class RemindersDetailComponent implements OnInit {
     this.chart.update();
 
     //console.log(chartData);
+  }
+
+  goToCreateReminderPage(){
+    this.router.navigate([`/reminders/create/${this.mid}`])
   }
 
 }

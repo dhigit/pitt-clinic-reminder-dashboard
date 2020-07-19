@@ -1,54 +1,65 @@
-<h1>Reminder History</h1>
+<mat-toolbar color="primary">
+  <span>Clinic Reminder Dashboard</span>
+</mat-toolbar>
 
-<div>
-  <div style="display: block; max-width: 900px; text-align: center;">
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-    </canvas>
+<div layout="row" class="container" layout-margin>
+  <div layout="row">
+    <div flex><h1>Reminders History for {{mappingInfo?.patientName}}</h1></div>
+    <div flex><button mat-raised-button color="primary" (click)="goToCreateReminderPage()">Create New Reminder</button></div>
   </div>
+
+  <div>
+    <div style="display: block;">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+      </canvas>
+    </div>
+  </div>
+  <hr>
+
+  <h1>Reminder History List</h1>
+  <table mat-table [dataSource]="loadedRemiders" class="mat-elevation-z8" >
+
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef > Reminder Title </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef > Priority </th>
+      <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="createdTime">
+      <th mat-header-cell *matHeaderCellDef > Created Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.createdTime | date:'medium'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *matHeaderCellDef > Duration </th>
+      <td mat-cell *matCellDef="let element"> {{element.duration}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="overallStatus">
+      <th mat-header-cell *matHeaderCellDef > Status </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.overallStatus==0">radio_button_unchecked</mat-icon>
+        <mat-icon *ngIf="element.overallStatus==1" [ngStyle]="{'color':'green'}">check_circle</mat-icon>
+        <mat-icon *ngIf="element.overallStatus==2" [ngStyle]="{'color':'red'}">remove_circle</mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
 </div>
-<hr>
 
-<h1>Reminder History List</h1>
-<table mat-table [dataSource]="loadedRemiders" class="mat-elevation-z8" >
-
-
-  <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef > Reminder Title </th>
-    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-  </ng-container>
-
-
-  <ng-container matColumnDef="priority">
-    <th mat-header-cell *matHeaderCellDef > Priority </th>
-    <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
-  </ng-container>
-
-
-  <ng-container matColumnDef="createdTime">
-    <th mat-header-cell *matHeaderCellDef > Created Time </th>
-    <td mat-cell *matCellDef="let element"> {{element.createdTime | date:'medium'}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="duration">
-    <th mat-header-cell *matHeaderCellDef > Duration </th>
-    <td mat-cell *matCellDef="let element"> {{element.duration}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="overallStatus">
-    <th mat-header-cell *matHeaderCellDef > Status </th>
-    <td mat-cell *matCellDef="let element">
-      <mat-icon *ngIf="element.overallStatus==0">radio_button_unchecked</mat-icon>
-      <mat-icon *ngIf="element.overallStatus==1" [ngStyle]="{'color':'green'}">check_circle</mat-icon>
-      <mat-icon *ngIf="element.overallStatus==2" [ngStyle]="{'color':'red'}">remove_circle</mat-icon>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
 

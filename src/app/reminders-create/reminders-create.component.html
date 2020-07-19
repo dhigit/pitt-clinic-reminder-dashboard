@@ -1,0 +1,45 @@
+<mat-toolbar color="primary">
+  <span>Clinic Reminder Dashboard</span>
+</mat-toolbar>
+
+<div layout="row" class="container" layout-margin>
+  <h1>New Reminder for {{mappingInfo?.patientName}}</h1>
+  <hr>
+
+<!-- TItle, Desc, duration, priority-->
+  <form class="tp-form">
+      <mat-form-field class = "tp-full-width">
+        <mat-label>Reminder Title</mat-label>
+        <input matInput>
+      </mat-form-field>
+
+      <br>
+      <mat-form-field class = "tp-full-width">
+        <mat-label>Reminder Description</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+
+      <br>
+      <mat-form-field class = "tp-half-width">
+        <mat-label>Duration</mat-label>
+        <input matInput type="number">
+        <span matSuffix>hour(s)</span>
+      </mat-form-field>
+
+      <br>
+      <mat-form-field class = "tp-half-width">
+        <mat-label>Priority</mat-label>
+        <mat-select>
+          <mat-option value="HIGH">HIGH</mat-option>
+          <mat-option value="MIDDLE">MIDDLE</mat-option>
+          <mat-option value="LOW">LOW</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+
+      <button mat-raised-button color="primary">Save Reminder</button>
+  </form>
+
+
+</div>
+
