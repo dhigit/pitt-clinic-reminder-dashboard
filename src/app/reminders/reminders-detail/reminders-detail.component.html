@@ -1,5 +1,19 @@
-<h1>Reminder History List</h1>
+<h1>Reminder History</h1>
 
+<div>
+  <div style="display: block; max-width: 900px; text-align: center;">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+    </canvas>
+  </div>
+</div>
+<hr>
+
+<h1>Reminder History List</h1>
 <table mat-table [dataSource]="loadedRemiders" class="mat-elevation-z8" >
 
 

@@ -11,6 +11,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { RemindersComponent } from './reminders/reminders.component';
 import { RemindersDetailComponent } from './reminders/reminders-detail/reminders-detail.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RemindersDetailComponent } from './reminders/reminders-detail/reminders
     MatTableModule,
     MatSortModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [RemindersService],
   bootstrap: [AppComponent]
