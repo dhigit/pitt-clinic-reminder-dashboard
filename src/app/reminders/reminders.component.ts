@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RemindersService } from '../reminders.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-reminders',
@@ -11,6 +14,7 @@ export class RemindersComponent implements OnInit {
 
   public dataSource = null;
   private doctorId = 1;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private remindersService: RemindersService,
@@ -18,7 +22,13 @@ export class RemindersComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.dataSource = this.remindersService.getPatientMappingByDoctor(this.doctorId);
+    this.remindersService.getPatientMappingByDoctor(this.doctorId).subscribe(result => {
+      this.dataSource = new MatTableDataSource(result);
+      this.dataSource.paginator = this.paginator;
+    });
+    /*this.dataSource = new MatTableDataSource(this.remindersService.getPatientMappingByDoctor(this.doctorId));
+    this.loadedRemiders = new MatTableDataSource(result);
+    this.loadedRemiders.paginator = this.paginator;*/
   }
 
   title = 'pitt-clinic-reminder-dashboard';

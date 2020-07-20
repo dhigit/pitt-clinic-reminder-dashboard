@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemindersService } from 'src/app/reminders.service';
 import { BaseChartDirective } from 'ng2-charts';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-reminders-detail',
@@ -20,6 +22,7 @@ export class RemindersDetailComponent implements OnInit {
   mid = -1;
   mappingInfo = null;
   loadedRemiders = null;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   displayedColumns: string[] = [
     'title',
@@ -37,8 +40,9 @@ export class RemindersDetailComponent implements OnInit {
     });
 
     this.remindersService.getRemindersByMid(this.mid).subscribe(result => {
-      this.loadedRemiders = result;
-      this.generateChartData();
+      this.generateChartData(result);
+      this.loadedRemiders = new MatTableDataSource(result);
+      this.loadedRemiders.paginator = this.paginator;
     });
   }
 
@@ -66,7 +70,7 @@ export class RemindersDetailComponent implements OnInit {
 
 
 
-  generateChartData(){
+  generateChartData(result){
     const chartData = [];
 
 
@@ -81,7 +85,7 @@ export class RemindersDetailComponent implements OnInit {
     }
 
     const dateNow = new Date(new Date().toDateString());
-    this.loadedRemiders.forEach(element => {
+    result.forEach(element => {
 
       if (element.overallStatus==2){
         const dateCurr = new Date(new Date(element.createdTime).toDateString());

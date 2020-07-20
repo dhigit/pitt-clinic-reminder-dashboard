@@ -5,33 +5,37 @@
 <div layout="row" class="container" layout-margin>
   <h1>Patients Lists</h1>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
 
 
-    <ng-container matColumnDef="patientName">
-      <th mat-header-cell *matHeaderCellDef > Patient Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.patientName}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="unfinishedHigh">
-      <th mat-header-cell *matHeaderCellDef > Unfinished High Priority </th>
-      <td mat-cell *matCellDef="let element"> {{element.unfinishedHigh}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="unfinishedMiddle">
-      <th mat-header-cell *matHeaderCellDef > Unfinished Middle Priority </th>
-      <td mat-cell *matCellDef="let element"> {{element.unfinishedMiddle}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="unfinishedLow">
-      <th mat-header-cell *matHeaderCellDef > Unfinished Low Priority </th>
-      <td mat-cell *matCellDef="let element"> {{element.unfinishedLow}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getReminderList(row)"></tr>
-  </table>
+      <ng-container matColumnDef="patientName">
+        <th mat-header-cell *matHeaderCellDef > Patient Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.patientName}} </td>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="unfinishedHigh">
+        <th mat-header-cell *matHeaderCellDef > Unfinished High Priority </th>
+        <td mat-cell *matCellDef="let element"> {{element.unfinishedHigh}} </td>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="unfinishedMiddle">
+        <th mat-header-cell *matHeaderCellDef > Unfinished Middle Priority </th>
+        <td mat-cell *matCellDef="let element"> {{element.unfinishedMiddle}} </td>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="unfinishedLow">
+        <th mat-header-cell *matHeaderCellDef > Unfinished Low Priority </th>
+        <td mat-cell *matCellDef="let element"> {{element.unfinishedLow}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getReminderList(row)"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+  </div>
+  
 </div>
