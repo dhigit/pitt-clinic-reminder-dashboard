@@ -7,29 +7,30 @@
   <hr>
 
 <!-- TItle, Desc, duration, priority-->
-  <form class="tp-form">
-      <mat-form-field class = "tp-full-width">
+  <form class="tp-form" #reminderForm="ngForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field class="tp-full-width">
         <mat-label>Reminder Title</mat-label>
-        <input matInput>
+        <input matInput name="title" [(ngModel)]="reminderModel.title">
       </mat-form-field>
 
       <br>
-      <mat-form-field class = "tp-full-width">
+      <mat-form-field class="tp-full-width">
         <mat-label>Reminder Description</mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput  name="desc" [(ngModel)]="reminderModel.desc"></textarea>
       </mat-form-field>
 
       <br>
-      <mat-form-field class = "tp-half-width">
+      <mat-form-field class="tp-half-width">
         <mat-label>Duration</mat-label>
-        <input matInput type="number">
+        <input matInput type="number"  name="duration" [(ngModel)]="reminderModel.duration">
         <span matSuffix>hour(s)</span>
       </mat-form-field>
 
       <br>
-      <mat-form-field class = "tp-half-width">
+      <mat-form-field class="tp-half-width">
         <mat-label>Priority</mat-label>
-        <mat-select>
+        <mat-select  name="priority" [(ngModel)]="reminderModel.priority">
           <mat-option value="HIGH">HIGH</mat-option>
           <mat-option value="MIDDLE">MIDDLE</mat-option>
           <mat-option value="LOW">LOW</mat-option>
@@ -37,7 +38,7 @@
       </mat-form-field>
       <br>
 
-      <button mat-raised-button color="primary">Save Reminder</button>
+      <button mat-raised-button color="primary" type="submit">Save Reminder</button>
   </form>
 
 

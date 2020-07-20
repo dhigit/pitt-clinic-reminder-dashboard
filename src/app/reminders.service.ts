@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from   'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Reminder } from './model/reminder';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,6 @@ export class RemindersService {
     ).pipe(
       map(
         results => {
-          //console.log(results);
           return results;
         }
       )
@@ -31,7 +31,6 @@ export class RemindersService {
     ).pipe(
       map(
         results => {
-          //console.log(results);
           return results;
         }
       )
@@ -44,7 +43,25 @@ export class RemindersService {
     ).pipe(
       map(
         results => {
-          //console.log(results);
+          return results;
+        }
+      )
+    )
+  }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
+  postReminder(data: Reminder): Observable<any>{
+    return this.http.post<any>(
+      `${this.url}/reminder`, data, this.httpOptions
+    ).pipe(
+      map(
+        results => {
+          console.log(results);
           return results;
         }
       )

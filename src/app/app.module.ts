@@ -20,6 +20,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule  } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FormsModule,
+    MatSnackBarModule
   ],
   exports: [MatSortModule],
   providers: [RemindersService],
