@@ -46,6 +46,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatInputModule,
     MatPaginatorModule
   ],
+  exports: [MatSortModule],
   providers: [RemindersService],
   bootstrap: [AppComponent]
 })

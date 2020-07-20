@@ -4,11 +4,20 @@ import { RemindersService } from 'src/app/reminders.service';
 import { BaseChartDirective } from 'ng2-charts';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-reminders-detail',
   templateUrl: './reminders-detail.component.html',
-  styleUrls: ['./reminders-detail.component.css']
+  styleUrls: ['./reminders-detail.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class RemindersDetailComponent implements OnInit {
 
@@ -18,11 +27,14 @@ export class RemindersDetailComponent implements OnInit {
     private router: Router
   ) { }
 
+  expandedElement: any;
 
   mid = -1;
   mappingInfo = null;
   loadedRemiders = null;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = [
     'title',
@@ -43,7 +55,17 @@ export class RemindersDetailComponent implements OnInit {
       this.generateChartData(result);
       this.loadedRemiders = new MatTableDataSource(result);
       this.loadedRemiders.paginator = this.paginator;
+      this.loadedRemiders.sort = this.sort;
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.loadedRemiders.filter = filterValue.trim().toLowerCase();
+
+    if (this.loadedRemiders.paginator) {
+      this.loadedRemiders.paginator.firstPage();
+    }
   }
 
   /* CHARTS */
