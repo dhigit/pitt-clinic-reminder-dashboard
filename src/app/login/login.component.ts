@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    localStorage.clear();
   }
 
   loginModel = new Login('', '');
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   login(){
     this.loginService.postLogin(this.loginModel).subscribe(result =>{
       if (result.status=="AUTHORIZED" && result.role=="doctor"){
+        localStorage.setItem("authID", result.ID);
         this.router.navigate([`/reminders`]);
       }else{
         this._snackBar.open('Login failed: Wrong Username or Password', 'dismiss', {

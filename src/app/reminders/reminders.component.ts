@@ -15,26 +15,21 @@ import { AuthserviceService } from '../authservice.service';
 export class RemindersComponent implements OnInit {
 
   public dataSource = null;
-  private doctorId = -1;
+  private doctorId = 1;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private remindersService: RemindersService,
-    private authService: AuthserviceService,
     private router: Router
   ){}
 
   ngOnInit(): void {
-    
-    this.authService.authUserObservable.subscribe(auth => {
-      if (auth.status=="AUTHORIZED"){
-        this.doctorId = auth.ID;
-      }
-    });
 
-    if (this.doctorId==-1){
+    if (!localStorage.length){
       this.router.navigate([`/login`]);
+    }else{
+      this.doctorId = +localStorage.getItem("authID");
     }
     
     this.remindersService.getPatientMappingByDoctor(this.doctorId).subscribe(result => {

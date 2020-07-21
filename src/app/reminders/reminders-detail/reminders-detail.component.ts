@@ -34,7 +34,6 @@ export class RemindersDetailComponent implements OnInit {
   mid = -1;
   mappingInfo = null;
   loadedRemiders = null;
-  doctorId = -1;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -50,13 +49,7 @@ export class RemindersDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authService.authUserObservable.subscribe(auth => {
-      if (auth.status=="AUTHORIZED"){
-        this.doctorId = auth.ID;
-      }
-    });
-
-    if (this.doctorId==-1){
+    if (!localStorage.length){
       this.router.navigate([`/login`]);
     }
 

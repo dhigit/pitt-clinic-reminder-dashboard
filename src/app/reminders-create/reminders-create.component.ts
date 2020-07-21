@@ -3,7 +3,6 @@ import { RemindersService } from '../reminders.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Reminder } from '../model/reminder';
 import { MatSnackBar, MatSnackBarModule  } from '@angular/material/snack-bar';
-import { AuthserviceService } from '../authservice.service';
 
 @Component({
   selector: 'app-reminders-create',
@@ -15,25 +14,17 @@ export class RemindersCreateComponent implements OnInit {
   mappingInfo = null;
   mid = -1;
   reminderModel = new Reminder('','',0,'',{mid: 0});
-  doctorId = -1;
 
   constructor(
     private remindersService: RemindersService,
     private activatedRoute: ActivatedRoute,
     private _snackBar: MatSnackBar,
-    private router: Router,
-    private authService: AuthserviceService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
 
-    this.authService.authUserObservable.subscribe(auth => {
-      if (auth.status=="AUTHORIZED"){
-        this.doctorId = auth.ID;
-      }
-    });
-
-    if (this.doctorId==-1){
+    if (!localStorage.length){
       this.router.navigate([`/login`]);
     }
 

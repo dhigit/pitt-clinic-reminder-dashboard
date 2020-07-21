@@ -9,9 +9,6 @@ import { Login } from './model/login';
 })
 export class AuthserviceService {
 
-  private authUser = new ReplaySubject<any>(1);
-  public authUserObservable = this.authUser.asObservable();
-
   private url = 'http://localhost:8080/api/';
 
   constructor(private http: HttpClient) { }
@@ -28,7 +25,6 @@ export class AuthserviceService {
     ).pipe(
       map(
         result => {
-          this.authUser.next(result);
           return result;
         }
       )
