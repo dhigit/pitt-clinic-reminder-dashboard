@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { RemindersComponent } from './reminders/reminders.component';
 import { RemindersDetailComponent } from './reminders/reminders-detail/reminders-detail.component';
 import { RemindersCreateComponent } from './reminders-create/reminders-create.component';
+import { LoginComponent } from './login/login.component';
+//import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
@@ -22,6 +24,10 @@ const routes: Routes = [
   {
     path: 'reminders/create/:mid',
     component: RemindersCreateComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 

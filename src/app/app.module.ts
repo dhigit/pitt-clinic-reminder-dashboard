@@ -22,14 +22,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule  } from '@angular/material/snack-bar';
-
+import { LoginComponent } from './login/login.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 @NgModule({
   declarations: [
     AppComponent,
     RemindersComponent,
     RemindersDetailComponent,
-    RemindersCreateComponent
+    RemindersCreateComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,9 @@ import { MatSnackBarModule  } from '@angular/material/snack-bar';
     MatInputModule,
     MatPaginatorModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   exports: [MatSortModule],
   providers: [RemindersService],
