@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../model/login';
 import { AuthserviceService } from '../authservice.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +13,9 @@ import { AuthserviceService } from '../authservice.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private loginService: AuthserviceService
+    private loginService: AuthserviceService,
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -22,7 +26,13 @@ export class LoginComponent implements OnInit {
   showSpinner = false;
   login(){
     this.loginService.postLogin(this.loginModel).subscribe(result =>{
-      console.log(result);
+      if (result.status=="AUTHORIZED" && result.role=="doctor"){
+        this.router.navigate([`/reminders`]);
+      }else{
+        this._snackBar.open('Login failed: Wrong Username or Password', 'dismiss', {
+          duration:3000
+        });
+      }
     });
   }
 

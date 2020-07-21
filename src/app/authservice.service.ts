@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from   'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { Login } from './model/login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthserviceService {
+
+  private authUser = new ReplaySubject<any>(1);
+  public authUserObservable = this.authUser.asObservable();
 
   private url = 'http://localhost:8080/api/';
 
@@ -24,9 +27,9 @@ export class AuthserviceService {
       `${this.url}/auth/login`, data, this.httpOptions
     ).pipe(
       map(
-        results => {
-          console.log(results);
-          return results;
+        result => {
+          this.authUser.next(result);
+          return result;
         }
       )
     )

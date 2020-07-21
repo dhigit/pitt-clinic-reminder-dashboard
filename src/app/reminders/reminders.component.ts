@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { AuthserviceService } from '../authservice.service';
 
 @Component({
   selector: 'app-reminders',
@@ -14,16 +15,28 @@ import { MatSort } from '@angular/material/sort';
 export class RemindersComponent implements OnInit {
 
   public dataSource = null;
-  private doctorId = 1;
+  private doctorId = -1;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private remindersService: RemindersService,
+    private authService: AuthserviceService,
     private router: Router
   ){}
 
   ngOnInit(): void {
+    
+    this.authService.authUserObservable.subscribe(auth => {
+      if (auth.status=="AUTHORIZED"){
+        this.doctorId = auth.ID;
+      }
+    });
+
+    if (this.doctorId==-1){
+      this.router.navigate([`/login`]);
+    }
+    
     this.remindersService.getPatientMappingByDoctor(this.doctorId).subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.paginator;

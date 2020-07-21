@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatSort } from '@angular/material/sort';
+import { AuthserviceService } from 'src/app/authservice.service';
 
 @Component({
   selector: 'app-reminders-detail',
@@ -24,7 +25,8 @@ export class RemindersDetailComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private remindersService: RemindersService,
-    private router: Router
+    private router: Router,
+    private authService: AuthserviceService
   ) { }
 
   expandedElement: any;
@@ -32,6 +34,7 @@ export class RemindersDetailComponent implements OnInit {
   mid = -1;
   mappingInfo = null;
   loadedRemiders = null;
+  doctorId = -1;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -46,6 +49,17 @@ export class RemindersDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.authService.authUserObservable.subscribe(auth => {
+      if (auth.status=="AUTHORIZED"){
+        this.doctorId = auth.ID;
+      }
+    });
+
+    if (this.doctorId==-1){
+      this.router.navigate([`/login`]);
+    }
+
     this.mid = +this.activatedRoute.snapshot.paramMap.get('mid');
     this.remindersService.getMappingById(this.mid).subscribe(result=> {
       this.mappingInfo = result;
