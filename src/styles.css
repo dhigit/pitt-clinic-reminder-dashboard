@@ -12,3 +12,13 @@ table {
   cursor: pointer;
   background-color: #eeeeee;
 }
+
+.link {
+  @include float-left;
+}
+.link {
+  @include float-right;
+}
+.link {
+  @include float-none;
+}

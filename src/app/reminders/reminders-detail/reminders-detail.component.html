@@ -1,10 +1,10 @@
 <mat-toolbar color="primary">
-  <span>Clinic Reminder Dashboard</span>
+  <span>Clinic Reminder Dashboard</span>&nbsp;|&nbsp;<a style="color: white; font-size: 12pt;" href="./login">log out</a>
 </mat-toolbar>
 
 <div layout="row" class="container" layout-margin>
   <div layout="row">
-    <div flex><h1>Reminders History for {{mappingInfo?.patientName}}</h1></div>
+    <div flex><h1><a href="./reminders">Reminders</a>  >  Reminders History for {{mappingInfo?.patientName}}</h1></div>
     <div flex><button mat-raised-button color="primary" (click)="goToCreateReminderPage()">Create New Reminder</button></div>
   </div>
 
